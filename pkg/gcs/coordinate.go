@@ -1,5 +1,5 @@
-// Package gcm provides data types and functions for the Geographic coordinate system (GCS).
-package gcm
+// Package gcs provides data types and functions for the Geographic coordinate system (GCS).
+package gcs
 
 import (
 	"errors"

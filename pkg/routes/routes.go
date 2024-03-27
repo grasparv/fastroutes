@@ -11,7 +11,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/grasparv/fastroutes/pkg/gcm"
+	"github.com/grasparv/fastroutes/pkg/gcs"
 )
 
 // RouteData represents properties about a single route between two GCM
@@ -36,7 +36,7 @@ type apiReply struct {
 
 // GetRoutes fetches a list of routes from the remote web service and returns
 // the list sorted in order of travel duration and distance.
-func GetRoutes(ctx context.Context, src gcm.Coordinate, dsts []gcm.Coordinate) (routes []Route, err error) {
+func GetRoutes(ctx context.Context, src gcs.Coordinate, dsts []gcs.Coordinate) (routes []Route, err error) {
 	ctx, cancel := context.WithTimeout(ctx, time.Minute)
 	defer cancel()
 
@@ -84,7 +84,7 @@ func GetRoutes(ctx context.Context, src gcm.Coordinate, dsts []gcm.Coordinate) (
 }
 
 // GetRoute fetches a single route from src to dst from the remote web service.
-func GetRoute(ctx context.Context, src gcm.Coordinate, dst gcm.Coordinate, keepalive bool) (r RouteData, err error) {
+func GetRoute(ctx context.Context, src gcs.Coordinate, dst gcs.Coordinate, keepalive bool) (r RouteData, err error) {
 	var reply apiReply
 	var request *http.Request
 	var response *http.Response
@@ -128,7 +128,7 @@ func GetRoute(ctx context.Context, src gcm.Coordinate, dst gcm.Coordinate, keepa
 
 // buildRequest returns a HTTP request to the OSRM web service
 // for retrieving a driving route
-func buildRequest(ctx context.Context, src gcm.Coordinate, dst gcm.Coordinate, keepalive bool) (*http.Request, error) {
+func buildRequest(ctx context.Context, src gcs.Coordinate, dst gcs.Coordinate, keepalive bool) (*http.Request, error) {
 	const method = "GET"
 	const serviceUrl = "http://router.project-osrm.org/route/v1/driving"
 

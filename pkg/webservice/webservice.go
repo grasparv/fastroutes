@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/grasparv/fastroutes/pkg/gcm"
+	"github.com/grasparv/fastroutes/pkg/gcs"
 	"github.com/grasparv/fastroutes/pkg/routes"
 )
 
@@ -51,16 +51,16 @@ func handleRoutes(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// Parse source from URI query
-	src, err := gcm.Parse(qsrcs[0])
+	src, err := gcs.Parse(qsrcs[0])
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	// Parse destinations from URI query
-	dsts := make([]gcm.Coordinate, 0, len(qdsts))
+	dsts := make([]gcs.Coordinate, 0, len(qdsts))
 	for _, qdst := range qdsts {
-		dst, err := gcm.Parse(qdst)
+		dst, err := gcs.Parse(qdst)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			return
